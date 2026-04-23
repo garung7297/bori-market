@@ -1,6 +1,6 @@
 # 1. 렌더 서버 안에서 직접 빌드(Build)를 시작해
 FROM gradle:7.6-jdk17 AS build
-COPY --chown=gradle:gradle . /home/gradle/src
+COPY --chown=gradle:gradle src /home/gradle/src
 WORKDIR /home/gradle/src
 
 # gradlew에 실행 권한을 주고 빌드해 (테스트는 건너뛰어서 속도를 높여!)
