@@ -13,5 +13,5 @@ EXPOSE 8080
 # 위에서 만든 따끈따끈한 jar 파일을 가져와
 COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
 
-# 3. 드디어 서버 시작!
+# 3. 드디어 서버 시작
 ENTRYPOINT ["java", "-jar", "/app.jar"]
