@@ -1,0 +1,130 @@
+<!-- =========================
+     뉴스 본문
+========================= -->
+<div class="card news-view">
+
+  <h2 th:text="${news.TITLE}"></h2>
+  <h2 th:text="${news.category}"></h2>
+
+
+  <div>
+    <a href="/news/list">← 목록으로 </a>
+
+    <a th:href="@{/news/edit/{id}(id=${news.ID})}">
+      /  수정   /
+    </a>
+
+    <form th:action="@{/news/delete/{id}(id=${news.ID})}"
+          method="post"
+          style="display:inline;">
+      <button type="submit"
+              onclick="return confirm('정말 삭제할까요?')">
+        삭제
+      </button>
+    </form>
+  </div>
+
+
+  <div class="news-meta">
+
+    <span th:text="${#dates.format(news.CREATED_AT, 'yyyy.MM.dd')}"></span>
+    <span>조회수 <b th:text="${news.VIEW_COUNT}"></b></span>
+    <span>댓글 <b th:text="${commentCount}"></b></span>
+
+  </div>
+
+  <!-- ✅ 본문 -->
+  <div class="news-content" th:utext="${news.CONTENT}"></div>
+
+  <!-- ✅ 업로드 이미지 uploadUrl -->
+  <div class="news-images" th:if="${images != null}">
+    <img th:each="img : ${images}"
+         th:src="${uploadUrl+ img.file_name}"
+         style="max-width:100%; margin-bottom:10px;">
+  </div>
+
+
+   <b th:each="img : ${images}"
+      th:text="${'이미지 : ' +uploadUrl+ img.file_name}">
+   </b>
+
+
+  <div style="margin-top:20px;">
+    <a href="/news/list">← 목록으로 </a>
+
+    <a th:href="@{/news/edit/{id}(id=${news.ID})}">
+      /  수정   /
+    </a>
+
+    <form th:action="@{/news/delete/{id}(id=${news.ID})}"
+          method="post"
+          style="display:inline;">
+      <button type="submit"
+              onclick="return confirm('정말 삭제할까요?')">
+        삭제
+      </button>
+
+    </form>
+  </div>
+
+
+
+</div>
+
+<!-- =========================
+     댓글 영역
+========================= -->
+<div class="card comment-zone">
+
+  <div class="zone-title">
+    💬 댓글 <span th:text="${commentCount}"></span>
+  </div>
+
+
+  <!-- 댓글 입력 -->
+  <form method="post" th:action="@{/comments}">
+    작성자 : <input type="text" name="writer" placeholder="닉네임">
+    <input type="hidden" name="newsId" th:value="${news.ID}">
+    <textarea name="content" placeholder="댓글을 입력하세요"></textarea>
+    <button type="submit">등록</button>
+  </form>
+
+</div>
+
+
+
+
+  <!-- 댓글 리스트 -->
+  <div class="comment" th:each="c : ${comments}">
+
+    <div th:style="${c.parentId != null ? 'margin-left: 40px; background: #f9f9f9;' : ''}" style="padding: 10px; border-bottom: 1px solid #eee;">
+
+      <div class="comment-meta">
+        <b th:text="${c.writer}"></b>
+<!--        <span th:text="${#dates.format(c.createdAt, 'MM.dd HH:mm')}"></span>-->
+
+        <button type="button" th:if="${c.parentId == null || c.parentId > 0}"
+                th:onclick="|toggleReplyForm(${c.id})|"
+                style="border:none; background:none; color:blue; cursor:pointer;">답글</button>
+      </div>
+
+      <div class="comment-content" th:text="${c.content}"></div>
+
+      <div th:id="'reply-form-' + ${c.id}" style=" margin-top:10px;display:none;">
+        <form method="post" th:action="@{/comments}">
+          <input type="hidden" name="newsId" th:value="${news.id}">
+          <input type="hidden" name="parentId" th:value="${c.id}">
+          작성자 : <input type="text" name="writer" placeholder="닉네임">
+          <textarea name="content" placeholder="답글 내용을 입력하세요" style="width:70%;"></textarea>
+          <button type="submit">답글 등록</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+<script th:src="@{/js/editer_box.js}"></script>

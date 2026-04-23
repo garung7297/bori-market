@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">뉴스</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/slider.css}">
+    <link rel="stylesheet" th:href="@{/css/news.css}">
+</head>
+<body>
+
+<div class="wrap">
+
+    <!-- 헤더 -->
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <!-- 메인 -->
+    <main class="container">
+        <section th:replace="~{layout/left :: left}" class="left-zone" ></section> <!-- 나중에 배너광고나 이곳에 다른 추천 기사들이 보일거야. -->
+        <section class="right-zone">
+
+            <!-- 🔥 여기서 content 교체 -->
+            <div th:replace="~{${content}}"></div>
+
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+    <div th:replace="~{layout/footer :: footer}"></div>
+
+</div>
+
+<script th:src="@{/js/slider.js}"></script>
+
+</body>
+</html>
+
+
+
+

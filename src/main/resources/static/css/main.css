@@ -1,0 +1,399 @@
+/* =========================
+   RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+               "Noto Sans KR", "Segoe UI", sans-serif;
+  background: #f5f6f7;
+  color: #222;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================
+   WRAP
+========================= */
+.wrap {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+  background: linear-gradient(180deg, #03c75a 0%, #02b351 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.menu a {
+  margin-left: 18px;
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.menu a:hover {
+  opacity: 1;
+}
+
+/* =========================
+   LAYOUT  background: #f5f600;
+========================= */
+.container {
+  max-width: 1280px;
+  margin: 10px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 10px;
+}
+
+/* ✅ 왼쪽 존 (과일/주스/썸네일 사이) */
+.left-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ✅ 오른쪽 존 (뉴스/그래프/경제뉴스 사이) */
+.right-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================
+   CARD
+========================= */
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.04),
+    0 10px 24px rgba(0,0,0,0.06);
+}
+
+.zone-title {
+  font-weight: 800;
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+
+
+
+/* =========================
+   WORK ZONE
+========================= */
+.work-zone {
+  background: linear-gradient(180deg, #f0fbf5 0%, #e7f6ee 100%);
+  padding: 10px 0;
+  margin-top: 80px;
+  border-top: 1px solid #dfeee6;
+}
+
+.work-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.work-card {
+  background: white;
+  border-radius: 22px;
+  padding: 44px 28px;
+  min-height: 200px;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.05),
+    0 10px 26px rgba(0,0,0,0.07);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  margin-top: 80px;
+  padding: 26px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  padding-bottom: 30px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    margin: 50px auto;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .work-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.left-zone > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.right-zone > div {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.user-news-list {
+  list-style: none;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-news-list li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f6f7f9;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.user-news-list li a:hover {
+  background: #eef2f6;
+  transform: translateX(4px);
+}
+
+.news-title {
+  font-weight: 600;
+  color: #222;
+}
+
+.news-date {
+  font-size: 12px;
+  color: #888;
+}
+
+
+.news-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.news-row {
+  border-bottom: 1px solid #eee;
+}
+
+.thumb-cell {
+  width: 90px;
+  padding: 10px;
+  vertical-align: top;
+}
+
+.news-thumb {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.no-thumb {
+  width: 80px;
+  height: 60px;
+  background: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 20px;
+}
+
+.content-cell {
+  padding: 10px;
+}
+
+.news-title {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.news-preview {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.3;
+  margin-bottom: 15px;
+}
+
+
+
+.mini-news {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.mini-thumb {
+  width: 50px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* =========================
+   뉴스 VIEW
+========================= */
+.news-view h2 {
+  margin-bottom: 14px;
+}
+.news-form{
+  margin-bottom: 14px;
+  border:1px solid;
+  background-color:gray;
+  max-width: 100%;
+}
+
+.news-meta {
+  display: flex;
+  gap: 14px;
+  color: #777;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #888;
+ }
+
+.news-content {
+  white-space: pre-line;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* 이미지 */
+.news-images {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.news-images img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+/* =========================
+   댓글
+========================= */
+.comment-zone textarea {
+  width: 100%;
+  min-height: 80px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.comment {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-meta {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+/*
+수민이가 추가 해준 스타일
+*/
+
+.zone-desc {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.table-list {
+    list-style: none;
+    padding: 0;
+}
+
+.table-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 12px;
+    background: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+}
+
+.table-name {
+    font-weight: 700;
+    color: #333;
+}
+
+.btn-manage {
+    background: #03c75a;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-manage:hover {
+    background: #02b351;
+}

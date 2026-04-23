@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+body {
+  background: #f2f4f6;   /* 네이버 바깥 회색 */
+  color: #222;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: linear-gradient(180deg, #05c46b 0%, #03b65a 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 로고 */
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 1px;
+}
+
+/* 메뉴 */
+.nav {
+  display: flex;
+  gap: 28px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.nav span {
+  cursor: pointer;
+  opacity: 0.95;
+}
+
+.nav span:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* ===== MAIN ===== */
+.container {
+  max-width: 1280px;
+  margin: 50px auto;
+  padding: 0 20px;
+
+  /* 완전 센터 말고 살짝 왼쪽 느낌 */
+  transform: translateX(-20px);
+}
+
+.top-zone {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+}
+
+/* ===== LEFT / RIGHT ===== */
+.left-zone, .right-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px;
+  min-height: 160px;
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.04),
+    0 10px 24px rgba(0,0,0,0.06);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.06),
+    0 14px 30px rgba(0,0,0,0.08);
+}
+
+/* ===== WORK ZONE ===== */
+.work-zone {
+  background: linear-gradient(180deg, #f0fbf5 0%, #e8f7ef 100%);
+  padding: 90px 0;
+  margin-top: 100px;
+  border-top: 1px solid #dfeee6;
+}
+
+.work-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.work-card {
+  background: white;
+  border-radius: 20px;
+  padding: 42px 28px;
+  min-height: 210px;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.05),
+    0 10px 26px rgba(0,0,0,0.07);
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  .container {
+    transform: none;
+  }
+
+  .top-zone {
+    grid-template-columns: 1fr;
+  }
+
+  .work-container {
+    grid-template-columns: 1fr;
+  }
+
+  .nav {
+    gap: 16px;
+    font-size: 14px;
+  }
+}

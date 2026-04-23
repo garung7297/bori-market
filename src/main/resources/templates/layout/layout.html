@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" th:fragment="layout">
+
+<head>
+  <meta charset="UTF-8">
+  <title>GARUNG</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" href="/css/slider.css">
+</head>
+<body>
+
+<div class="wrap">
+  <div th:replace="~{layout/header :: header}"></div>
+
+  <main class="container">
+
+    <section class="left-zone">
+      <div th:replace="~{layout/left :: left}"></div>
+    </section>
+    <section class="right-zone">
+      <div th:replace="~{layout/right :: right}"></div>
+    </section>
+
+
+  </main>
+
+
+
+  <div th:replace="~{layout/work-zone :: workZone}"></div>
+  <div th:replace="~{layout/footer :: footer}"></div>
+
+
+
+
+
+</div>
+
+<script th:src="@{/js/slider.js}"></script>
+</body>
+</html>

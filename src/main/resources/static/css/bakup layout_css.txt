@@ -1,0 +1,140 @@
+* {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f5f6f8;
+}
+
+/* ✅ 가운데 고정 폭 */
+.inner {
+    max-width: 1200px;   /* 뉴스 사이트 느낌 */
+    margin: 0 auto;     /* 가운데 정렬 */
+    padding: 0 16px;    /* 양쪽 숨 */
+}
+
+/* 🔝 상단 */
+.topbar {
+    background: #111;
+    color: white;
+}
+
+.topbar .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+/* 🧩 메인 */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+    padding: 20px 0;
+}
+
+
+
+
+
+
+
+/* 🔝 상단 */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 30px;
+    background: #111;
+    color: white;
+}
+
+.topbar .logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.topbar .menu a {
+    color: white;
+    margin-left: 18px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+/* 🧩 메인 */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+    padding: 20px;
+}
+
+/* 왼쪽 */
+.left {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+/* 오른쪽 */
+.right {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+
+
+
+
+
+
+/* 공통 박스 */
+.box {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* 🔽 업무존 */
+.work-zone {
+    margin: 10px 20px 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+.work-box {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* 📱 모바일 대응 */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .work-zone {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+
+/*개발자 느낌*/

@@ -1,0 +1,62 @@
+<div th:fragment="right">
+
+    <!-- 📰 주식 뉴스 -->
+<!--    <div class="card">
+        <div class="zone-title">📰 주식 뉴스</div>
+        <p>빅데이터 뉴스 영역</p>
+    </div>-->
+
+    <!-- 📈 주식 그래프 -->
+    <!--    <div class="card">
+            <div class="zone-title">📈 주식 그래프</div>
+            <p>실시간 차트 영역</p>
+        </div>-->
+
+
+        <div class="card">
+            <div class="zone-title">🚀 시스템 데이터 현황</div>
+            <p class="zone-desc">수파베이스에 연결된 실시간 테이블 목록입니다.</p>
+
+            <ul class="table-list">
+                <li th:each="tableName : ${tableList}" class="table-item">
+                    <span class="table-name" th:text="${tableName}"></span>
+                    <button class="btn-manage" th:onclick="|location.href='/@{${tableName}}/list'|">
+                        관리하기
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+    <!-- ✍️ 유저가 작성한 뉴스 -->
+    <div class="card">
+        <div class="zone-title">✍️ 유저가 작성한 뉴스</div>
+
+        <div th:if="${userNewsList == null or #lists.isEmpty(userNewsList)}">
+            <p>아직 작성된 뉴스가 없습니다.</p>
+        </div>
+
+        <ul th:if="${userNewsList != null}" style="list-style:none; padding:0; margin-top:10px">
+            <li th:each="news : ${userNewsList}"
+                style="padding:10px 0; border-bottom:1px solid #eee">
+
+                <a th:href="@{/news/view/{id}(id=${news.ID})}"
+                   style="font-weight:600; display:block; margin-bottom:4px"
+                   th:text="${news.TITLE}">
+                    뉴스 제목
+                </a>
+
+                <div style="font-size:12px; color:#888; display:flex; justify-content:space-between">
+                    <span th:text="${#dates.format(news.CREATED_AT, 'yyyy-MM-dd')}">2026-01-01</span>
+                    <span>👁 조회수: <b th:text="${news.VIEW_COUNT}">0</b></span>
+                </div>
+            </li>
+        </ul>
+
+        <div style="margin-top:10px; text-align:right;">
+            <a href="/news/list" style="font-size:13px; color:#03c75a; font-weight:600">
+                전체 뉴스 보기 →
+            </a>
+        </div>
+    </div>
+
+</div>

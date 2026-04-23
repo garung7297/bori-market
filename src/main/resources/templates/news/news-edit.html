@@ -1,0 +1,71 @@
+<div class="card news-edit">
+
+    <form method="post" th:action="@{/news/update/{id}(id=${news.id})}"
+          enctype="multipart/form-data">
+
+      <input type="hidden" name="id" th:value="${news.id}"/>
+
+      <div>
+        <input type="text" name="title"
+               th:value="${news.TITLE}"
+               placeholder="제목">
+      </div>
+
+
+        <!-- 카테고리 -->
+        <div style="margin-bottom:16px;">
+            <label>카테고리</label>
+            <select name="category" style="width:100%; padding:10px; margin-top:6px;">
+                <option value="경제" th:selected="${news.CATEGORY == '경제'}">경제</option>
+                <option value="주식" th:selected="${news.CATEGORY == '주식'}">주식</option>
+                <option value="산업" th:selected="${news.CATEGORY == '산업'}">산업</option>
+                <option value="기타" th:selected="${news.CATEGORY == '기타'}">기타</option>
+            </select>
+        </div>
+
+
+        <!-- 출처 -->
+        <div style="margin-bottom:16px;">
+            출처 :
+            <input type="text" name="source"
+                   th:value="${news.source}"
+                   style="width:100%; padding:10px; margin-top:6px;">
+        </div>
+        <div th:text="@{/news/update/{id}(id=${news.id})}"></div>
+
+        <div th:replace="layout/editer_box :: editer_box" class="editor-toolbar">[editer_box]</div>
+        <div id="editor"  contenteditable="true"  class="editor" th:utext="${news.CONTENT}"></div>
+        <input type="hidden" name="content" id="content">
+
+      <!-- 기존 이미지 -->
+      <div>
+        <div th:each="img : ${images}">
+          <img th:src="${uploadUrl + img.FILE_NAME}"
+               style="max-width:200px">
+
+          <label>
+            <input type="checkbox"
+                   name="deleteImageIds"
+                   th:value="${img.ID}">
+            삭제
+          </label>
+        </div>
+      </div>
+
+      <!-- 새 이미지 추가 -->
+      <div>
+        <input type="file" name="images" multiple>
+      </div>
+
+      <button type="submit">수정 저장</button>
+        <div th:onclick="|location.href='/news/view/${news.ID}'|"
+             style="cursor:pointer;padding:10px 20px; display:inline-flex; align-items:center;">
+            취소
+        </div>
+
+
+    </form>
+</div>
+
+
+<script th:src="@{/js/editer_box.js}"></script>

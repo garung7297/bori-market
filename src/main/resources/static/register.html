@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>가겸 플랫폼 - 회원가입</title>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f4f7f6; }
+    .form-container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 350px; }
+    h2 { text-align: center; color: #333; }
+    input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+    button { width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    button:hover { background-color: #45a049; }
+  </style>
+</head>
+<body>
+<div class="form-container">
+  <h2>가겸 플랫폼 가입</h2>
+  <form action="/save-member" method="get">
+    <label>아이디 (ID)</label>
+    <input type="text" name="id" placeholder="아이디를 입력하세요" required>
+
+    <label>역할 선택 (Role)</label>
+    <select name="roleS4
+      <option value="1">본사 (Master)</option>
+      <option value="2">판매사 (Vendor)</option>
+      <option value="3">소비자 (User)</option>
+    </select>
+
+    <label>등급 (Level)</label>
+    <input type="number" name="level" value="1" min="1" max="10">
+
+    <button type="submit">가입하기</button>
+  </form>
+</div>
+</body>
+</html>

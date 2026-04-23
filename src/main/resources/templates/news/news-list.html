@@ -1,0 +1,79 @@
+<div class="card">
+
+    <div class="zone-title">📰 뉴스 목록</div>
+
+
+    <a href="/news/new"> 글쓰기 </a>
+    <table class="news-table" >
+        <tbody>
+        <tr th:each="news : ${newsList}"
+            th:onclick="|location.href='/news/view/${news.ID}'|" style="cursor:pointer;">
+
+            <td class="thumb-cell">
+                <img th:if="${news.THUMBNAIL != null}"
+                     th:src="${uploadUrl +news.THUMBNAIL}"
+                     class="news-thumb" />
+                <!-- -->
+                <!-- 없으면 기본 이미지 /Users/TEST/uploads/news-->
+                <img th:if="${news.THUMBNAIL == null}"
+                     src="/images/no-image.png"
+                     class="news-thumb" />
+            </td>
+
+            <td style="padding-right:20px">
+
+                <b th:text="${uploadUrl +news.THUMBNAIL}"></b>
+                <div class="news-meta">
+                     작성일 :  <span th:text="${#dates.format(news.CREATED_AT,'MM.dd')}"></span>,
+                     조회수 : <span th:text="${news.VIEW_COUNT}">👁</span>
+                </div>
+                <span  th:text="${news.TITLE}" class="news-title"></span>
+
+                <div class="news-preview" th:text="${#strings.abbreviate(
+                        news.CONTENT.replaceAll('<[^>]*>', '')
+                     , 120)}" ></div>
+<!--
+                <div class="news-preview" th:text="${
+                     #strings.abbreviate(
+                     news.CONTENT.replaceAll('<[^>]*>', '')    ,        120
+                     )
+                     }" >
+                   th:text="${news.CONTENT.replaceAll('<[^>]*>', '')}" -->
+
+                     <!--
+                     th:text="${
+                     #strings.abbreviate(
+                     news.CONTENT.replaceAll('<[^>]*>', '')    ,        120
+                     )
+                     }"
+
+
+
+                     ${
+
+                     news.CONTENT.replaceAll('<[^>]*>', '')
+
+                     }
+
+                     ">
+                     th:text="
+
+                     ${
+                     #strings.abbreviate(
+                                #strings.replace( news.CONTENT, '<[^>]*>', '')      ,        120
+                                )
+                     }
+
+
+                             ">
+
+</div>
+                             -->
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>

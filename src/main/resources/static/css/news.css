@@ -1,0 +1,50 @@
+.news-edit form {
+    width: 100%;
+}
+
+.news-edit input[type="text"],
+.news-edit textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.news-edit textarea {
+    min-height: 300px;
+    resize: vertical;
+}
+
+
+
+
+
+
+
+
+.news-edit .editor {
+  min-height: 300px;          /* ⭐ 핵심 */
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  font-size: 15px;
+  line-height: 1.6;
+
+  outline: none;
+  box-sizing: border-box;
+
+  white-space: pre-wrap;      /* 줄바꿈 유지 */
+}
+
+
+
+
+
+.editor:empty:before {
+  content: "뉴스 내용을 입력하세요";
+  color: #aaa;
+}
+
+

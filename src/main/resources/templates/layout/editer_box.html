@@ -1,0 +1,45 @@
+
+<div th:fragment="editer_box" class="editer_box">
+
+    <button type="button" onclick="format('bold')"><b>가</b></button>
+    <button type="button" onclick="format('italic')"><i>가</i></button>
+    <button type="button" onclick="format('underline')"><u>가</u></button>
+
+
+    <!-- 서체 -->
+    <select id="fontFamily">
+        <option value="">서체</option>
+        <option value="Arial">Arial</option>
+        <option value="Noto Sans KR">Noto Sans KR</option>
+        <option value="Times New Roman">Times</option>
+        <option value="monospace">Mono</option>
+    </select>
+
+
+    <select onchange="format('fontSize', this.value)">
+        <option value="">크기</option>
+        <option value="14px">8</option>
+        <option value="16px">9</option>
+        <option value="18px">10</option>
+        <option value="22px">12</option>
+        <option value="14px">14</option>
+        <option value="16px">16</option>
+        <option value="18px">18</option>
+        <option value="22px">22</option>
+    </select>
+
+    <!-- 색상 -->
+    <input type="color" id="fontColor" onchange="format('foreColor', this.value)">
+
+
+</div>
+
+<!--폰트 서체 안바뀌고 있음
+
+새로 생성시 이미지 여러개 안들어가고 있음
+수정 페이지에서만 여러개 들어가고 있음
+처음수정시 여러개 들어가면 에러가 났었음
+카테고리 불러오는거 안들어 가있음
+뷰 페이지에서 출처가 안나타나고 있음
+오라클 관리자 페이지 1521인가 들어가는거 있었는데 접속 해보려니 안되네.
+-->
