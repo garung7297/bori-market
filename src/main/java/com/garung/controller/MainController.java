@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,20 +28,52 @@ public class MainController {
             WHERE table_schema = 'public' 
             ORDER BY table_name
         """;
-
+//        인덱스페이지에 뿌려줄 정보들 여기서 모델에 담아서 인덱스에 리턴시킴
         List<String> tables = jdbcTemplate.queryForList(sql, String.class);
-       System.out.println(tables);
+
+        model.addAttribute("tableList", tables); // 화면으로 전달!
+
+
+
         sql = """
             SELECT *
             FROM news
             ORDER BY created_at DESC
-            FETCH FIRST 6 ROWS ONLY
+            LIMIT 6
         """;
         List<Map<String, Object>> userNewsList = jdbcTemplate.queryForList(sql);
-
-//        인덱스페이지에 뿌려줄 정보들 여기서 모델에 담아서 인덱스에 리턴시킴
-        model.addAttribute("tableList", tables); // 화면으로 전달!
         model.addAttribute("userNewsList", userNewsList);
+
+        String tableSql = """
+        SELECT relname AS table_name
+        FROM pg_class c
+        JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE n.nspname = 'public' AND c.relkind = 'r'
+        ORDER BY c.oid DESC 
+    """;
+        List<String> tableNames = jdbcTemplate.queryForList(tableSql, String.class);
+        System.out.println("테이블이름 :"+tableNames);
+        // 2. 각 테이블의 데이터를 담을 바구니 만들기
+        // 결과 예시: { "news": [내용1, 내용2...], "users": [내용1, 내용2...] }
+        Map<String, List<Map<String, Object>>> tableDataMap = new LinkedHashMap<>();
+
+        for (String tableName : tableNames) {
+            try {
+                // 각 테이블의 최신 데이터 3개씩만 가져와보기
+                String dataSql = "SELECT * FROM " + tableName + " LIMIT 3";
+                List<Map<String, Object>> dataList = jdbcTemplate.queryForList(dataSql);
+                tableDataMap.put(tableName, dataList);
+                System.out.println(tableName+" :: "+dataList);
+            } catch (Exception e) {
+                // 테이블은 있는데 데이터가 없거나 조회 에러가 날 경우를 대비
+                tableDataMap.put(tableName, new ArrayList<>());
+            }
+
+        }
+
+        model.addAttribute("tableDataMap", tableDataMap);
+
+
         return "index"; // index.html로 이동
     }
 }

@@ -12,20 +12,30 @@
         <div class="zone-title">📈 주식 그래프</div>
         <p>실시간 차트 영역</p>
     </div>
+    <div class="card">
+        <div class="zone-title">🚀 시스템 데이터 현황</div>
+        <p class="zone-desc">수파베이스에 연결된 실시간 테이블 목록입니다.</p>
 
-        <div class="card">
-            <div class="zone-title">🚀 시스템 데이터 현황</div>
-            <p class="zone-desc">수파베이스에 연결된 실시간 테이블 목록입니다.</p>
+        <ul class="table-list">
+            <li th:each="entry : ${tableDataMap}" class="table-item">
+                <a th:href="@{/{name}/list(name=${entry.key})}" class="btn-manage">
+                    <span class="table-name" th:text="${entry.key}">테이블명</span>
+                </a>
 
-            <ul class="table-list">
-                <li th:each="tableName : ${tableList}" class="table-item">
-                    <span class="table-name" th:text="${tableName}"></span>
-                    <button class="btn-manage" th:onclick="|location.href='/@{${tableName}}/list'|">
-                        관리하기
-                    </button>
-                </li>
-            </ul>
-        </div>
+                <div class="thumb-wrap">
+                    <div class="thumb-track auto-slide">
+                        <div th:each="row : ${entry.value}" class="thumb-item">
+                            <span th:text="${row}">데이터내용</span>
+                        </div>
+
+                        <div th:if="${#lists.isEmpty(entry.value)}" class="thumb-item">
+                            비어있음 📭
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 
 
     <!-- 📢 보리마켓 최신 소식 -->
