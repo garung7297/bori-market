@@ -53,7 +53,7 @@ public class MainController {
     """;
         List<String> tableNames = jdbcTemplate.queryForList(tableSql, String.class);
 
-        tableNames = List.of("news", "member", "role", "test_table");
+        tableNames = List.of("news", "member", "test_table");
 
         System.out.println("테이블이름 :"+tableNames);
         // 2. 각 테이블의 데이터를 담을 바구니 만들기
