@@ -1,17 +1,17 @@
 <div th:fragment="right">
 
+
     <!-- 📰 주식 뉴스 -->
-<!--    <div class="card">
+    <div class="card">
         <div class="zone-title">📰 주식 뉴스</div>
         <p>빅데이터 뉴스 영역</p>
-    </div>-->
+    </div>
 
     <!-- 📈 주식 그래프 -->
-    <!--    <div class="card">
-            <div class="zone-title">📈 주식 그래프</div>
-            <p>실시간 차트 영역</p>
-        </div>-->
-
+    <div class="card">
+        <div class="zone-title">📈 주식 그래프</div>
+        <p>실시간 차트 영역</p>
+    </div>
 
         <div class="card">
             <div class="zone-title">🚀 시스템 데이터 현황</div>
@@ -27,9 +27,10 @@
             </ul>
         </div>
 
-    <!-- ✍️ 유저가 작성한 뉴스 -->
+
+    <!-- 📢 보리마켓 최신 소식 -->
     <div class="card">
-        <div class="zone-title">✍️ 유저가 작성한 뉴스</div>
+        <div class="zone-title">📢 보리마켓 최신 소식</div>
 
         <div th:if="${userNewsList == null or #lists.isEmpty(userNewsList)}">
             <p>아직 작성된 뉴스가 없습니다.</p>
