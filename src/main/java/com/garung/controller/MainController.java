@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -28,8 +29,17 @@ public class MainController {
 
         List<String> tables = jdbcTemplate.queryForList(sql, String.class);
        System.out.println(tables);
+        sql = """
+            SELECT *
+            FROM news
+            ORDER BY created_at DESC
+            FETCH FIRST 6 ROWS ONLY
+        """;
+        List<Map<String, Object>> userNewsList = jdbcTemplate.queryForList(sql);
+
 //        인덱스페이지에 뿌려줄 정보들 여기서 모델에 담아서 인덱스에 리턴시킴
         model.addAttribute("tableList", tables); // 화면으로 전달!
+        model.addAttribute("userNewsList", userNewsList);
         return "index"; // index.html로 이동
     }
 }
