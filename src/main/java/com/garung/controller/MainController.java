@@ -62,8 +62,9 @@ public class MainController {
 
         for (String tableName : tableNames) {
             try {
-                // 각 테이블의 최신 데이터 3개씩만 가져와보기
-                String dataSql = "SELECT * FROM " + tableName + " LIMIT 15";
+                // 1. 작성일(created_at) 기준으로 최신순(DESC) 정렬하고
+                // 2. 딱 15개만(LIMIT 15) 가져오기
+                String dataSql = "SELECT * FROM " + tableName + " ORDER BY created_at DESC LIMIT 15";
                 List<Map<String, Object>> dataList = jdbcTemplate.queryForList(dataSql);
                 tableDataMap.put(tableName, dataList);
                 System.out.println(tableName+" :: "+dataList);
