@@ -12,29 +12,6 @@
         <div class="zone-title">📈 주식 그래프</div>
         <p>실시간 차트 영역</p>
     </div>
-    <div class="card">
-        <div class="zone-title">🚀 현제 인기 상품</div>
-
-        <ul class="table-list">
-            <li th:each="entry : ${tableDataMap}" class="table-item">
-                <a th:href="@{/{name}/list(name=${entry.key})}" class="btn-manage">
-                    <span class="table-name" th:text="${entry.key}">테이블명</span>
-                </a>
-
-                <div class="thumb-wrap">
-                    <div class="thumb-track auto-slide">
-                        <div th:each="row : ${entry.value}" class="thumb-item">
-                            <div th:text="${row}">데이터내용</div>
-                        </div>
-
-                        <div th:if="${#lists.isEmpty(entry.value)}" class="thumb-item">
-                            비어있음 📭
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
 
 
     <!-- 📢 보리마켓 최신 소식 -->
@@ -68,5 +45,51 @@
             </a>
         </div>
     </div>
+
+
+
+    <!-- 📈 주식 그래프 -->
+    <div class="card">
+        <div class="zone-title">📈 주식 그래프</div>
+        <p>실시간 차트 영역</p>
+    </div>
+
+    <!-- 📈 주식 그래프 -->
+    <div class="card">
+        <div class="zone-title">📈 주식 그래프</div>
+        <p>실시간 차트 영역</p>
+    </div>
+
+
+
+
+    <div class="card">
+        <div class="zone-title">🚀 실시간 데이터 디버깅 체크 </div>
+
+        <ul class="table-list">
+            <li th:each="entry : ${tableDataMap}" class="table-item">
+                <a th:href="@{/{name}/list(name=${entry.key})}" class="btn-manage">
+                    <span class="table-name" th:text="${entry.key}">테이블명</span>
+                </a>
+
+                <div>
+                    <div>
+                        <!--                    class="thumb-wrap"> class="thumb-track auto-slide">-->
+                        <div th:each="row : ${entry.value}" class="thumb-item">
+                            <div th:text="${row}">데이터내용</div>
+                        </div>
+
+                        <div th:if="${#lists.isEmpty(entry.value)}" class="thumb-item">
+                            비어있음 📭
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+
+
 
 </div>

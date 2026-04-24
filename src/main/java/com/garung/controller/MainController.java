@@ -53,7 +53,7 @@ public class MainController {
     """;
         List<String> tableNames = jdbcTemplate.queryForList(tableSql, String.class);
 
-        tableNames = List.of("users", "news",  "test_table");
+        //tableNames = List.of("users", "news",  "test_table");
 
         System.out.println("테이블이름 :"+tableNames);
         // 2. 각 테이블의 데이터를 담을 바구니 만들기
@@ -63,7 +63,7 @@ public class MainController {
         for (String tableName : tableNames) {
             try {
                 // 각 테이블의 최신 데이터 3개씩만 가져와보기
-                String dataSql = "SELECT * FROM " + tableName + " LIMIT 5";
+                String dataSql = "SELECT * FROM " + tableName + " LIMIT 15";
                 List<Map<String, Object>> dataList = jdbcTemplate.queryForList(dataSql);
                 tableDataMap.put(tableName, dataList);
                 System.out.println(tableName+" :: "+dataList);
