@@ -28,13 +28,15 @@
   -webkit-animation-play-state: paused;
 }
 
-/* Safari 대응 핵심 */
+/* Safari 대응 핵심 - 이 부분을 고쳐줘! */
 @keyframes slide-loop {
   from {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(-480px, 0, 0);
+    /* 트랙 길이의 절반만큼 이동 (복제본이 있다면)
+       만약 복제 안 했다면 -100%로 설정해봐! */
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -43,7 +45,7 @@
     -webkit-transform: translate3d(0, 0, 0);
   }
   to {
-    -webkit-transform: translate3d(-480px, 0, 0);
+    -webkit-transform: translate3d(-50%, 0, 0);
   }
 }
 

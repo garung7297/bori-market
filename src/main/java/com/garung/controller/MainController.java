@@ -60,7 +60,7 @@ public class MainController {
         for (String tableName : tableNames) {
             try {
                 // 각 테이블의 최신 데이터 3개씩만 가져와보기
-                String dataSql = "SELECT * FROM " + tableName + " LIMIT 3";
+                String dataSql = "SELECT * FROM " + tableName + " LIMIT 5";
                 List<Map<String, Object>> dataList = jdbcTemplate.queryForList(dataSql);
                 tableDataMap.put(tableName, dataList);
                 System.out.println(tableName+" :: "+dataList);
