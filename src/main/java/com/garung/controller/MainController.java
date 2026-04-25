@@ -55,7 +55,7 @@ public class MainController {
 
         //tableNames = List.of("users", "news",  "test_table");
 
-        System.out.println("테이블이름 :"+tableNames);
+        //System.out.println("테이블이름 :"+tableNames);
         // 2. 각 테이블의 데이터를 담을 바구니 만들기
         // 결과 예시: { "news": [내용1, 내용2...], "users": [내용1, 내용2...] }
         Map<String, List<Map<String, Object>>> tableDataMap = new LinkedHashMap<>();
@@ -67,7 +67,7 @@ public class MainController {
                 String dataSql = "SELECT * FROM " + tableName + " ORDER BY created_at DESC LIMIT 15";
                 List<Map<String, Object>> dataList = jdbcTemplate.queryForList(dataSql);
                 tableDataMap.put(tableName, dataList);
-                System.out.println(tableName+" :: "+dataList);
+                //System.out.println(tableName+" :: "+dataList);
             } catch (Exception e) {
                 // 테이블은 있는데 데이터가 없거나 조회 에러가 날 경우를 대비
                 tableDataMap.put(tableName, new ArrayList<>());
@@ -76,8 +76,7 @@ public class MainController {
         }
 
         model.addAttribute("tableDataMap", tableDataMap);
-
-
         return "index"; // index.html로 이동
     }
+
 }
