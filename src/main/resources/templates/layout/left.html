@@ -1,6 +1,21 @@
 <div th:fragment="left">
 
   <div class="card">
+    <div class="zone-title" th:if="${session.userNickname == null}">
+      <a th:href="@{/login}">로그인</a>
+    </div>
+
+    <div class="zone-title"  th:if="${session.userNickname != null}">
+      <p>
+        <strong th:text="${session.userNickname}"></strong>   (<strong th:text="${session.user_login_id}"></strong>)님 환영합니다! 🥕
+
+      </p>
+      <a th:href="@{/logout}">로그아웃</a>
+    </div>
+
+  </div>
+
+  <div class="card">
     <div class="zone-title">🍊 과일 존</div>
     <p>오늘의 추천 과일 / 농장 직송</p>
   </div>
