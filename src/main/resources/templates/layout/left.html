@@ -18,11 +18,13 @@
   <div class="card" th:if="${session.isAdmin == true}">
     <div class="zone-title" style="color: #d9534f;">🛠️ 개발자 모드 = <strong th:text="${session.isAdmin}"></strong></div>
     <p><a th:href="@{/admin/all-tables}">전체 테이블 보기</a></p>
+    <a th:href="@{/admin/main}" class="admin-link">관리자 페이지로 이동</a>
     <p>DB 관리 및 로그 확인</p>
   </div>
 
   <div class="card" th:if="${session.userRole == '본사'}">
     <div class="zone-title" style="color: #d9534f;">🛠️ 관리자 전용</div>
+    <a th:href="@{/admin/main}" class="admin-link">관리자 페이지로 이동</a>
     <p><a th:href="@{/admin/dashboard}" style="font-weight: bold; color: blue;">[전체 회원 , 데이터 보기]</a></p>
   </div>
 

@@ -23,12 +23,21 @@ public class AdminController {
     }
 
     @GetMapping("/main")
-    public String adminMain(HttpSession session) {
-        // "본사" 권한 체크 로직 포함
-        return "admin/main";
+    public String adminMain(Model model) {
+        // 1. 처음 들어왔을 때 보여줄 '옷(알맹이)'의 이름을 지정해
+        // admin/dashboard.html 파일 내의 th:fragment="content"를 불러오게 됨
+        model.addAttribute("contentPage", "dashboard");
+
+        // 2. 껍데기(프레임) 파일인 admin_main을 리턴해
+        return "admin/admin_main";
     }
 
-
+    // 다른 메뉴(예: 회원관리)를 눌렀을 때 예시
+    @GetMapping("/users")
+    public String userManagement(Model model) {
+        model.addAttribute("contentPage", "user_list"); // user_list.html을 던져줌
+        return "admin/admin_main";
+    }
 
 
     @GetMapping("/dashboard")

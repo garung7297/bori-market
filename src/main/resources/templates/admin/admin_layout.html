@@ -1,20 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<header th:fragment="adminHeader">
-  <nav style="background-color: #343a40; padding: 15px; color: white; display: flex; justify-content: space-between;">
-    <div>
-      <a th:href="@{/admin/main}" style="color: #03c75a; font-weight: bold; text-decoration: none; margin-right: 20px;">BORI ADMIN</a>
-      <a th:href="@{/admin/all-tables}" style="color: white; text-decoration: none; margin-right: 15px;">전체 테이블</a>
-      <a th:href="@{/admin/users}" style="color: white; text-decoration: none; margin-right: 15px;">사용자 관리</a>
-    </div>
-    <div>
-      <span th:text="${session.userNickname}">관리자</span>님 접속 중
-      <a th:href="@{/logout}" style="color: #ff8080; margin-left: 15px;">로그아웃</a>
-    </div>
-  </nav>
+<!--
+이 파일이 하는 일 admin_layout.html (모든 디자인 선언 및 관리)
+
+여기에만 디자인(HTML/CSS)을 작성해. 수정도 오직 여기서만 해.
+부품화 (th:fragment): 각 영역에 이름을 붙여서 조각내 놓은 것임
+중복 제거: admin_main.html이나 다른 페이지에서 이 파일의 내용만 쏙쏙 뽑아 가니까, 다른 파일에는 헤더/푸터 코드를 적을 필요가 없어.
+세션 활용: 여기서 ${session.userNickname}을 한 번만 적어두면, 어떤 관리자 페이지를 가든 상단이나 하단에 로그인한 사람 이름이 자동으로 뜨겠지?
+🛠️ 사용 방법 (복습)
+admin_main.html에서 부를 때 이렇게 부르는 거야:
+<header th:replace="~{admin/admin_layout :: adminHeader}"></header>
+의미: "admin 폴더의 admin_layout 파일 안에서 adminHeader라는 조각을 가져와서 내 태그랑 교체해줘!"
+이렇게 파일을 나눠두면 나중에 "헤더 색깔 좀 바꿔볼까?" 싶을 때 이 파일 하나만 딱 고치면 모든 관리자 페이지가 한꺼번에 변신할 거야. 진짜 효율적이지
+-->
+
+<header th:fragment="adminHeader" style="background: #2c3e50; color: white; padding: 15px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+    <h1 style="margin: 0; font-size: 20px;">
+      <a th:href="@{/admin/main}" style="color: #03c75a; text-decoration: none;">BORI ADMIN</a>
+    </h1>
+    <nav>
+      <a th:href="@{/admin/all-tables}" style="color: white; text-decoration: none; margin-left: 20px;">전체 테이블</a>
+      <a th:href="@{/admin/users}" style="color: white; text-decoration: none; margin-left: 20px;">회원 관리</a>
+      <a th:href="@{/logout}" style="color: #ff8080; text-decoration: none; margin-left: 20px;">로그아웃</a>
+    </nav>
+  </div>
 </header>
 
-<footer th:fragment="adminFooter" style="text-align: center; padding: 20px; font-size: 12px; color: #888; border-top: 1px solid #ddd; margin-top: 50px;">
-  © 2026 BORI MARKET - Developer Mode
+<aside th:fragment="adminAside" style="width: 200px; background: #f4f4f4; height: 100vh; padding: 20px;">
+  <ul style="list-style: none; padding: 0;">
+    <li style="margin-bottom: 10px;"><a th:href="@{/admin/main}">🏠 대시보드</a></li>
+    <li style="margin-bottom: 10px;"><a th:href="@{/admin/all-tables}">📊 전체 데이터</a></li>
+    <li style="margin-bottom: 10px;"><a th:href="@{/admin/settings}">⚙️ 시스템 설정</a></li>
+  </ul>
+</aside>
+
+<footer th:fragment="adminFooter" style="text-align: center; padding: 20px; color: #888; font-size: 13px; border-top: 1px solid #ddd;">
+  <p>© 2026 BORI MARKET Developer Mode | <span th:text="${session.userNickname}">관리자</span> 접속 중</p>
 </footer>
+
 </html>
