@@ -10,11 +10,6 @@
 
 
 <div th:replace="~{layout/layout :: layout}"></div>
-<ul>
-    <li th:each="tableName : ${tableList}" style="margin-bottom: 10px;">
-        <span th:text="${tableName}" style="font-weight: bold;">테이블이름</span>
-        <button th:onclick="|location.href='/@{${tableName}}/list'|">이동하기</button>
-    </li>
-</ul>
+
 </body>
 </html>

@@ -15,15 +15,73 @@
 
   </div>
 
+  <div class="card" th:if="${session.isAdmin == true}">
+    <div class="zone-title" style="color: #d9534f;">🛠️ 개발자 모드 = <strong th:text="${session.isAdmin}"></strong></div>
+    <p><a th:href="@{/admin/all-tables}">전체 테이블 보기</a></p>
+    <p>DB 관리 및 로그 확인</p>
+  </div>
+
+  <div class="card" th:if="${session.userRole == '본사'}">
+    <div class="zone-title" style="color: #d9534f;">🛠️ 관리자 전용</div>
+    <p><a th:href="@{/admin/dashboard}" style="font-weight: bold; color: blue;">[전체 회원 , 데이터 보기]</a></p>
+  </div>
+
   <div class="card">
-    <div class="zone-title">🍊 과일 존</div>
+    <div class="zone-title">베스트 회원</div>
     <p>오늘의 추천 과일 / 농장 직송</p>
   </div>
 
   <div class="card">
-    <div class="zone-title">🥤 주스 · 잼 존</div>
-    <p>수제 주스 · 수제 잼</p>
+    <div class="zone-title">베스트 상품</div>
+    <div class="thumb-wrap">
+      <div class="thumb-track auto-slide">
+
+        <!-- 1세트 -->
+        <div class="thumb-item">
+          <img src="/img/sample1.jpg" alt="의자">
+          <p>의자</p>
+        </div>
+        <div class="thumb-item">
+          <img src="/img/sample2.jpg" alt="아이폰16프로">
+          <p>아이폰16프로</p>
+        </div>
+        <div class="thumb-item">
+          <img src="/img/sample3.jpg" alt="겔럭시S26 256">
+          <p>겔럭시S26 256</p>
+        </div>
+
+        <!-- 2세트 (복제) -->
+        <div class="thumb-item">
+          <img src="/img/sample1.jpg" alt="식탁">
+          <p>식탁</p>
+        </div>
+        <div class="thumb-item">
+          <img src="/img/sample2.jpg" alt="침대">
+          <p>침대</p>
+        </div>
+        <div class="thumb-item">
+          <img src="/img/sample3.jpg" alt="냉장고">
+          <p>냉장고</p>
+        </div>
+
+        <!-- 3세트 (복제) -->
+        <div class="thumb-item">
+          <img src="/img/sample1.jpg" alt="인형">
+          <p>인형</p>
+        </div>
+        <div class="thumb-item">
+          <img src="/img/sample2.jpg" alt="치마">
+          <p>치마</p>
+        </div>
+        <div class="thumb-item">
+          <img src="/img/sample3.jpg" alt="바지">
+          <p>바지</p>
+        </div>
+
+      </div>
+    </div>
   </div>
+
 
 
 
@@ -35,7 +93,7 @@
 
         <!-- 1세트 -->
         <div class="thumb-item">
-          <img src="/img/sample1.jpg">
+          <img src="/img/sample1.jpg" alt="">
           <p>딸기</p>
         </div>
         <div class="thumb-item">
@@ -53,25 +111,25 @@
           <p>딸기</p>
         </div>
         <div class="thumb-item">
-          <img src="/img/sample2.jpg">
+          <img src="/img/sample2.jpg" alt="">
           <p>오렌지</p>
         </div>
         <div class="thumb-item">
-          <img src="/img/sample3.jpg">
+          <img src="/img/sample3.jpg" alt="">
           <p>사과</p>
         </div>
 
         <!-- 3세트 (복제) -->
         <div class="thumb-item">
-          <img src="/img/sample1.jpg">
+          <img src="/img/sample1.jpg" alt="">
           <p>딸기</p>
         </div>
         <div class="thumb-item">
-          <img src="/img/sample2.jpg">
+          <img src="/img/sample2.jpg" alt="">
           <p>오렌지</p>
         </div>
         <div class="thumb-item">
-          <img src="/img/sample3.jpg">
+          <img src="/img/sample3.jpg" alt="">
           <p>사과</p>
         </div>
 

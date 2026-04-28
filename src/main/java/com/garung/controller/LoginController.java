@@ -45,6 +45,22 @@ public class LoginController {
                 session.setAttribute("user_login_id", user.get("user_login_id"));
                 session.setAttribute("userNickname", user.get("nickname"));
 
+                // 특정 아이디인 경우에만 'isAdmin' 권한을 true로 설정
+                if ("eco2sumin".equals(user.get("user_login_id"))) {
+                    session.setAttribute("isAdmin", true);
+                } else {
+                    session.setAttribute("isAdmin", false);
+                }
+
+                // DB에서 가져온 role_name을 세션에 그대로 저장 (예: "본사", "판매사", "배송사", "고객")
+                String userRole = "본사";//(String) user.get("role_name");
+                session.setAttribute("userRole", userRole);
+
+                // 개발자(본사)인지 체크하는 로직도 이 값 하나로 해결!
+                System.out.println("접속 권한 userRole : " + userRole);
+
+
+
                 System.out.println("로그인 성공! 환영합니다, " + user.get("nickname") + "님 id :  "+user.get("id"));
 
                 return "redirect:/"; // 메인 페이지로 이동
