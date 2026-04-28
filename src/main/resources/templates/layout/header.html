@@ -5,15 +5,19 @@
   <div class="header-inner">
     <div class="logo" onclick="location.href='/'" style="cursor:pointer;">보리마켓</div>
 
+
     <nav class="menu">
-      <div>
         <a href="/">홈</a>
         <a href="/news/list">뉴스</a>
         <a href="#">과일</a>
         <a href="#">업무</a>
         <a href="#">마이</a>
+        <span th:if="${session.userNickname == null}" ><a th:href="@{/login}">로그인</a></span>
         <a th:href="@{/admin/main}" class="admin-link">관리자 페이지로 이동</a>
-      </div>
     </nav>
-  </div>
+
+
+
+
+</div>
 </div>
