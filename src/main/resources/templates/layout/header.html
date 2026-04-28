@@ -12,8 +12,11 @@
         <a href="#">과일</a>
         <a href="#">업무</a>
         <a href="#">마이</a>
-        <span th:if="${session.userNickname == null}" ><a th:href="@{/login}">로그인</a></span>
-        <a th:href="@{/admin/main}" class="admin-link">관리자 페이지로 이동</a>
+        <span th:if="${session.userNickname == null}" ><a th:href="@{/login}">로그인 </a></span>
+        <a th:href="@{/admin/main}" class="admin-link">관리자 페이지 </a>
+
+
+        <a href="https://blog.naver.com/eco-sumin" class="admin-link">에코수민 블로그  </a>
     </nav>
 
 
