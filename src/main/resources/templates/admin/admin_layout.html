@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="adminHeader">
+  <nav style="background-color: #343a40; padding: 15px; color: white; display: flex; justify-content: space-between;">
+    <div>
+      <a th:href="@{/admin/main}" style="color: #03c75a; font-weight: bold; text-decoration: none; margin-right: 20px;">BORI ADMIN</a>
+      <a th:href="@{/admin/all-tables}" style="color: white; text-decoration: none; margin-right: 15px;">전체 테이블</a>
+      <a th:href="@{/admin/users}" style="color: white; text-decoration: none; margin-right: 15px;">사용자 관리</a>
+    </div>
+    <div>
+      <span th:text="${session.userNickname}">관리자</span>님 접속 중
+      <a th:href="@{/logout}" style="color: #ff8080; margin-left: 15px;">로그아웃</a>
+    </div>
+  </nav>
+</header>
+
+<footer th:fragment="adminFooter" style="text-align: center; padding: 20px; font-size: 12px; color: #888; border-top: 1px solid #ddd; margin-top: 50px;">
+  © 2026 BORI MARKET - Developer Mode
+</footer>
+</html>

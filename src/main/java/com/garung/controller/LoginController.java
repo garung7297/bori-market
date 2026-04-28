@@ -98,6 +98,44 @@ public class LoginController {
 
         // 로그아웃 후에는 다시 메인 페이지로 보냄
         return "redirect:/";
-    }
+    }//logout
 
-}
+
+    @GetMapping("/join")
+    public String joinPage() {
+        return "layout/join";
+    }//joinPage
+
+    @PostMapping("/join_process")
+    public String joinProcess(
+            @RequestParam String user_login_id,
+            @RequestParam String password,
+            @RequestParam String nickname,
+            Model model
+    ) {
+        try {
+            // 1. 중복 가입 체크
+            String checkSql = "SELECT count(*) FROM users WHERE user_login_id = ?";
+            Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, user_login_id);
+
+            if (count != null && count > 0) {
+                model.addAttribute("error", "이미 사용 중인 아이디입니다.");
+                return "layout/join";
+            }
+
+            // 2. 회원 정보 저장
+            String insertUserSql = "INSERT INTO users (user_login_id, password, nickname) VALUES (?, ?, ?)";
+            jdbcTemplate.update(insertUserSql, user_login_id, password, nickname);
+
+            // 3. 기본 권한 부여 (고객 역할 ID: 4)
+            String userIdSql = "SELECT id FROM users WHERE user_login_id = ?";
+            Integer newUserId = jdbcTemplate.queryForObject(userIdSql, Integer.class, user_login_id);
+            jdbcTemplate.update("INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)", newUserId, 4);
+
+            return "redirect:/login"; // 가입 성공 시 로그인으로
+        } catch (Exception e) {
+            model.addAttribute("error", "가입 도중 오류가 발생했습니다.");
+            return "layout/join";
+        }
+    }//joinProcess
+}//class
