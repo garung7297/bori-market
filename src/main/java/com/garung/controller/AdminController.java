@@ -22,16 +22,6 @@ public class AdminController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @GetMapping("/main")
-    public String adminMain(Model model) {
-        // 1. 처음 들어왔을 때 보여줄 '옷(알맹이)'의 이름을 지정해
-        // admin/dashboard.html 파일 내의 th:fragment="content"를 불러오게 됨
-        model.addAttribute("contentPage", "dashboard");
-
-        // 2. 껍데기(프레임) 파일인 admin_main을 리턴해
-        return "admin/admin_main";
-    }
-
     // 다른 메뉴(예: 회원관리)를 눌렀을 때 예시
     @GetMapping("/users")
     public String userManagement(Model model) {
@@ -39,14 +29,13 @@ public class AdminController {
         return "admin/admin_main";
     }
 
+    @GetMapping("/main")
+    public String adminMain(HttpSession session, Model model) {
 
-    @GetMapping("/dashboard")
-    public String adminDashboard(HttpSession session, Model model) {
+
         String userRole = (String) session.getAttribute("userRole");
         // 보안 체크: 본사 직원이 아니면 접근 불가
-        if (!"본사".equals(userRole)) {
-            return "redirect:/";
-        }
+        //if (!"본사".equals(userRole)) {return "redirect:/";}
 
         // 전체 회원 조회 (관리자 전용 데이터)
         String sql = "SELECT * FROM users ORDER BY id DESC";
@@ -66,30 +55,25 @@ public class AdminController {
 
         model.addAttribute("tableList", tables); // 화면으로 전달!
 
-        String tableSql = """
+        sql = """
         SELECT relname AS table_name
         FROM pg_class c
         JOIN pg_namespace n ON n.oid = c.relnamespace
         WHERE n.nspname = 'public' AND c.relkind = 'r'
         ORDER BY c.oid DESC 
     """;
-        List<String> tableNames = jdbcTemplate.queryForList(tableSql, String.class);
+        List<String> tableNames = jdbcTemplate.queryForList(sql, String.class);
 
-        //tableNames = List.of("users", "news",  "test_table");
-
-        //System.out.println("테이블이름 :"+tableNames);
-        // 2. 각 테이블의 데이터를 담을 바구니 만들기
-        // 결과 예시: { "news": [내용1, 내용2...], "users": [내용1, 내용2...] }
         Map<String, List<Map<String, Object>>> tableDataMap = new LinkedHashMap<>();
 
         for (String tableName : tableNames) {
             try {
                 // 1. 작성일(created_at) 기준으로 최신순(DESC) 정렬하고
                 // 2. 딱 15개만(LIMIT 15) 가져오기
-                String dataSql = "SELECT * FROM " + tableName + " ORDER BY created_at DESC LIMIT 15";
-                List<Map<String, Object>> dataList = jdbcTemplate.queryForList(dataSql);
+                sql = "SELECT * FROM " + tableName + " ORDER BY created_at DESC LIMIT 17";
+                List<Map<String, Object>> dataList = jdbcTemplate.queryForList(sql);
                 tableDataMap.put(tableName, dataList);
-                //System.out.println(tableName+" :: "+dataList);
+                System.out.println(tableName+" :: "+dataList);
             } catch (Exception e) {
                 // 테이블은 있는데 데이터가 없거나 조회 에러가 날 경우를 대비
                 tableDataMap.put(tableName, new ArrayList<>());
@@ -99,8 +83,13 @@ public class AdminController {
 
         model.addAttribute("tableDataMap", tableDataMap);
 
-        return "admin/dashboard"; // templates/admin/dashboard.html
-    }
+
+        // 1. 처음 들어왔을 때 보여줄 '옷(알맹이)'의 이름을 지정해
+        // admin/dashboard.html 파일 내의 th:fragment="content"를 불러오게 됨
+        model.addAttribute("contentPage", "dashboard");
+        // 2. 껍데기(프레임) 파일인 admin_main을 리턴해
+        return "admin/main";
+    }//adminMain
 
 
 

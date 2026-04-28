@@ -23,9 +23,8 @@
   </div>
 
   <div class="card" th:if="${session.userRole == '본사'}">
-    <div class="zone-title" style="color: #d9534f;">🛠️ 관리자 전용</div>
-    <a th:href="@{/admin/main}" class="admin-link">관리자 페이지로 이동</a>
-    <p><a th:href="@{/admin/dashboard}" style="font-weight: bold; color: blue;">[전체 회원 , 데이터 보기]</a></p>
+    <div class="zone-title" style="color: #d9534f;">🛠️ 본사 전용</div>
+    <p><a th:href="@{/admin/main}" style="font-weight: bold; color: blue;">관리자 페이지로 이동</a></p>
   </div>
 
   <div class="card">
