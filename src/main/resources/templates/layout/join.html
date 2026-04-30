@@ -86,46 +86,25 @@
     <a th:href="@{/login}">이미 계정이 있나요? 로그인</a>
   </div>
 </div>
-
 <script>
   const idInput = document.getElementById('user_login_id');
   const idMsg = document.getElementById('id-check-msg');
   const pwInput = document.getElementById('password');
   const pwCheckInput = document.getElementById('password_check');
-  const pwMsg = document.getElementById('pw-check-msg');
-  const submitBtn = document.getElementById('submitBtn');
   const nicknameInput = document.getElementById('nickname');
+  const errorWrapper = document.getElementById('error-message-wrapper');
+  const errorText = document.getElementById('error-text');
 
-  // 상태 관리 변수
-  let isIdValid = false;
-  let isPwValid = false;
+  // 아이디 상태 저장 변수 (서버 중복체크 결과 반영)
+  let isIdAvailable = false;
 
-  // 모든 조건이 맞는지 확인하여 버튼 활성화 제어
-  function checkAllValid() {
-      if (isIdValid && isPwValid && nicknameInput.value.trim() !== "") {
-          submitBtn.disabled = false;
-      } else {
-          submitBtn.disabled = true;
-      }
-  }
-
-  // 1. 아이디 중복/형식 체크[cite: 1]
+  // 아이디 중복 체크 로직
   idInput.addEventListener('blur', function() {
       const loginId = this.value;
-      if (loginId === "") {
-          idMsg.textContent = "영어와 숫자를 조합하여 4~12자로 입력해주세요.";
-          idMsg.style.color = "gray";
-          isIdValid = false;
-          checkAllValid();
-          return;
-      }
-
       const idRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,12}$/;
-      if (!idRegex.test(loginId)) {
-          idMsg.textContent = "형식이 맞지 않습니다. (영어+숫자 조합 4~12자)";
-          idMsg.style.color = "red";
-          isIdValid = false;
-          checkAllValid();
+
+      if (loginId === "" || !idRegex.test(loginId)) {
+          isIdAvailable = false;
           return;
       }
 
@@ -135,41 +114,51 @@
               idMsg.textContent = data.message;
               if (data.available) {
                   idMsg.style.color = "green";
-                  isIdValid = true;
+                  isIdAvailable = true;
               } else {
                   idMsg.style.color = "red";
-                  isIdValid = false;
+                  isIdAvailable = false;
               }
-              checkAllValid();
           });
   });
 
-  // 2. 비밀번호 일치 실시간 체크[cite: 1]
-  function checkPassword() {
-      if (pwInput.value === "" || pwCheckInput.value === "") {
-          pwMsg.textContent = "";
-          isPwValid = false;
-      } else if (pwInput.value === pwCheckInput.value) {
-          pwMsg.textContent = "비밀번호가 일치합니다.";
-          pwMsg.style.color = "green";
-          isPwValid = true;
-      } else {
-          pwMsg.textContent = "비밀번호가 일치하지 않습니다.";
-          pwMsg.style.color = "red";
-          isPwValid = false;
-      }
-      checkAllValid();
-  }
-
-  pwInput.addEventListener('input', checkPassword);
-  pwCheckInput.addEventListener('input', checkPassword);
-  nicknameInput.addEventListener('input', checkAllValid);
-
-  // 3. 폼 제출 처리[cite: 1]
+  // 폼 제출 시 통합 검증 로직
   document.getElementById('joinForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const formData = new FormData(this);
 
+      // 에러 메시지 초기화
+      errorWrapper.style.display = 'none';
+      errorText.textContent = "";
+
+      // 1. 아이디 검사
+      const idRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,12}$/;
+      if (!idRegex.test(idInput.value)) {
+          showError("아이디 형식이 올바르지 않습니다. (영어+숫자 4~12자)", idInput);
+          return;
+      }
+      if (!isIdAvailable) {
+          showError("아이디 중복 확인이 필요하거나 이미 사용 중인 아이디입니다.", idInput);
+          return;
+      }
+
+      // 2. 비밀번호 일치 검사[cite: 1]
+      if (pwInput.value === "") {
+          showError("비밀번호를 입력해주세요.", pwInput);
+          return;
+      }
+      if (pwInput.value !== pwCheckInput.value) {
+          showError("비밀번호가 서로 일치하지 않습니다.", pwCheckInput);
+          return;
+      }
+
+      // 3. 닉네임 검사[cite: 1]
+      if (nicknameInput.value.trim() === "") {
+          showError("닉네임을 입력해주세요.", nicknameInput);
+          return;
+      }
+
+      // 모든 통과 시 서버 전송[cite: 1]
+      const formData = new FormData(this);
       fetch('/join_process', {
           method: 'POST',
           body: formData
@@ -180,11 +169,23 @@
               alert(data.message);
               window.location.href = '/';[cite: 1]
           } else {
-              document.getElementById('error-text').textContent = data.message;
-              document.getElementById('error-message-wrapper').style.display = 'block';
+              showError(data.message);
           }
-      });
+      })
+      .catch(err => showError("서버 통신 중 오류가 발생했습니다."));
   });
+
+  // 에러 메시지를 보여주고 해당 입력창으로 이동시키는 함수[cite: 1]
+  function showError(msg, targetInput) {
+      errorText.textContent = msg;
+      errorWrapper.style.display = 'block';
+      if (targetInput) {
+          targetInput.focus();
+          targetInput.style.border = "2px solid red";
+          // 2초 뒤에 빨간 테두리 해제
+          setTimeout(() => targetInput.style.border = "", 2000);
+      }
+  }
 </script>
 </body>
 </html>
