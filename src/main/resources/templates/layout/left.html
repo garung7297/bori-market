@@ -5,15 +5,39 @@
       <a th:href="@{/login}">로그인</a>
     </div>
 
-    <div class="zone-title"  th:if="${session.userNickname != null}">
-      <p>
-        <strong th:text="${session.userNickname}"></strong>   (<strong th:text="${session.user_login_id}"></strong>)님 환영합니다! 🥕
 
-      </p>
-      <a th:href="@{/logout}">로그아웃</a>
+  <!-- [로그인 후] 프로필 이미지와 환영 메시지 -->
+  <div class="zone-title" th:if="${session.userNickname != null}">
+    <div style="text-align: center; margin-bottom: 10px;">
+      <!-- 프로필 이미지 표시 영역 -->
+      <div class="profile-img-box">
+        <img th:if="${session.userProfile != null}"
+             th:src="${session.userProfile}"
+             alt="프로필" class="profile-img">
+        <!-- 이미지가 없으면 기본 사람 아이콘 (SVG나 기본 이미지 사용) -->
+        <img th:if="${session.userProfile == null}"
+             src="/images/default-user.png" width="80px" height="80px"
+             alt="기본프로필" class="profile-img">
+      </div>
     </div>
 
+    <p style="text-align: center;">
+      <strong th:text="${session.userNickname}"></strong>님 환영합니다! 🥕<br>
+      (<span th:text="${session.user_login_id}" style="font-size: 0.9em; color: #666;"></span>)
+    </p>
+
+    <div style="text-align: right; margin-top: 5px;">
+      <a th:href="@{/logout}" style="font-size: 0.8em; color: #999;">로그아웃</a>
+    </div>
   </div>
+
+
+</div>
+
+
+
+
+
 
   <div class="card" th:if="${session.isAdmin == true}">
     <div class="zone-title" style="color: #d9534f;">🛠️ 개발자 모드 = <strong th:text="${session.isAdmin}"></strong></div>

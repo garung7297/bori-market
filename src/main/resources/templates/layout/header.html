@@ -14,14 +14,16 @@
         <a href="#">마이</a>
         <span th:if="${session.userNickname == null}" ><a th:href="@{/login}">로그인 </a></span>
         <a th:href="@{/join}" style="font-weight: bold; color: #333;">회원가입</a>
-        <a th:href="@{/admin/main}" class="admin-link">관리자 페이지 </a>
 
 
         <a href="https://blog.naver.com/eco-sumin" class="admin-link">에코수민 블로그  </a>
     </nav>
 
+      <div class="card" th:if="${session.isAdmin == true}">
+          <a th:href="@{/admin/main}" class="admin-link">관리자 페이지 </a></div>
 
 
 
 </div>
+
 </div>
