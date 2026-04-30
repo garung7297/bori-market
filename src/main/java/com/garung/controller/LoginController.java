@@ -138,8 +138,10 @@ public class LoginController {
             System.out.println("newUserId (UUID) : " + newUserId);
 
             // [수정] user_id 컬럼도 UUID(String)를 받도록 처리
-            jdbcTemplate.update("INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)", newUserId, 4);
+            //jdbcTemplate.update("INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)", newUserId, 4);
 
+            // [핵심 수정] ?::uuid 를 사용하여 String을 UUID 타입으로 명시적 형변환 함
+            jdbcTemplate.update("INSERT INTO user_roles (user_id, role_id) VALUES (?::uuid, ?)", newUserId, 4);
 
             return "redirect:/login"; // 가입 성공 시 로그인으로
         } catch (Exception e) {
