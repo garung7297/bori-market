@@ -111,6 +111,7 @@ public class LoginController {
             @RequestParam String user_login_id,
             @RequestParam String password,
             @RequestParam String nickname,
+            HttpSession session, // 자동 로그인을 위해 필요
             Model model
     ) {
         try {

@@ -13,6 +13,7 @@
         <a href="#">업무</a>
         <a href="#">마이</a>
         <span th:if="${session.userNickname == null}" ><a th:href="@{/login}">로그인 </a></span>
+        <a th:href="@{/join}" style="font-weight: bold; color: #333;">회원가입</a>
         <a th:href="@{/admin/main}" class="admin-link">관리자 페이지 </a>
 
 
