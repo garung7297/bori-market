@@ -9,23 +9,93 @@
 <div class="login-box">
   <h2>회원가입 🥕</h2>
 
-  <form th:action="@{/join_process}" method="post">
-    <input type="text" name="user_login_id" class="login-input" placeholder="아이디" required>
-    <input type="password" name="password" class="login-input" placeholder="비밀번호" required>
-    <input type="text" name="nickname" class="login-input" placeholder="닉네임" required>
+  <form th:action="@{/join_process}" method="post" id="joinForm">
+    <!-- 입력 항목들 -->
+    <table>
+      <tr><td>아이디 : </td>
+        <td><input type="text" name="user_login_id" class="login-input" placeholder="아이디" required></td>
+      </tr><tr><td>비밀번호 : </td>
+        <td><input type="password" name="password" class="login-input" placeholder="비밀번호" required></td>
+      </tr><tr><td>닉네임 :</td>
+        <td> <input type="text" name="nickname" class="login-input" placeholder="닉네임" required></td>
+      </tr>
+    </table>
 
-    <div class="error-layer" th:if="${error}">
-      <span class="error-icon">!</span>
-      <span th:text="${error}"></span>
+<!--    <div class="error-layer" th:if="${error}">-->
+<!--      <span class="error-icon">!</span>-->
+<!--      <span th:text="${error}"></span>-->
+<!--    </div>-->
+
+    <!-- 에러 메시지 출력 영역을 디자인에 맞춰 수정 -->
+    <div id="error-message-wrapper" style="display: none;">
+      <div class="error-layer">
+        <span class="error-icon">!</span>
+        <span id="error-text"></span>
+      </div>
     </div>
+    <script>
+      document.getElementById('joinForm').addEventListener('submit', function(e) {
+          e.preventDefault();
 
-    <button type="submit" class="login-btn">가입 완료</button>
+          const formData = new FormData(this);
+          const errorWrapper = document.getElementById('error-message-wrapper');
+          const errorText = document.getElementById('error-text');
+
+          fetch('/join_process', {
+              method: 'POST',
+              body: formData
+          })
+          .then(response => response.json()) // 응답을 JSON으로 파싱
+          .then(data => {
+              if (data.success) {
+                  alert(data.message);
+                  window.location.href = '/login';
+              } else {
+                  // 실패 시 메시지 출력
+                  errorText.textContent = data.message;
+                  errorWrapper.style.display = 'block';
+              }
+          })
+          .catch(err => {
+              console.error(err);
+              alert("서버 통신 오류가 발생했습니다.");
+          });
+      });
+    </script>
+    <div id="error-message" style="color: red; display: none;"></div>
+
+    <button type="submit" class="login-btn">가입하기</button>
   </form>
 
   <div class="login-footer">
+
+    <a th:href="@{/}">홈</a> |
     <a th:href="@{/login}">이미 계정이 있나요? 로그인</a>
   </div>
 </div>
+<script>
+  document.getElementById('joinForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // 페이지 새로고침 방지
 
+      const formData = new FormData(this);
+
+      fetch('/join_process', {
+          method: 'POST',
+          body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              alert(data.message);
+              window.location.href = '/login'; // 성공 시에만 이동
+          } else {
+              // 실패 시 입력값은 그대로 두고 메시지만 표시
+              const errorDiv = document.getElementById('error-message');
+              errorDiv.textContent = data.message;
+              errorDiv.style.display = 'block';
+          }
+      });
+  });
+</script>
 </body>
 </html>
