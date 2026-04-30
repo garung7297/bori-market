@@ -128,14 +128,23 @@ public class LoginController {
             String insertUserSql = "INSERT INTO users (user_login_id, password, nickname) VALUES (?, ?, ?)";
             jdbcTemplate.update(insertUserSql, user_login_id, password, nickname);
 
+
+
             // 3. 기본 권한 부여 (고객 역할 ID: 4)
+            // [수정] UUID를 받기 위해 Integer 대신 String을 사용함
             String userIdSql = "SELECT id FROM users WHERE user_login_id = ?";
-            Integer newUserId = jdbcTemplate.queryForObject(userIdSql, Integer.class, user_login_id);
-            System.out.println("newUserId : " + newUserId);
+            String newUserId = jdbcTemplate.queryForObject(userIdSql, String.class, user_login_id);
+
+            System.out.println("newUserId (UUID) : " + newUserId);
+
+            // [수정] user_id 컬럼도 UUID(String)를 받도록 처리
             jdbcTemplate.update("INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)", newUserId, 4);
+
 
             return "redirect:/login"; // 가입 성공 시 로그인으로
         } catch (Exception e) {
+            // 에러 로그 출력 (디버깅용)
+            e.printStackTrace();
             model.addAttribute("error", "가입 도중 오류가 발생했습니다.<p>" + e);
 
             return "layout/join";
