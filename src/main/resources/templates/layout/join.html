@@ -6,13 +6,7 @@
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <style>
     .check-msg { font-size: 12px; margin-top: 5px; display: block; }
-    .input-group { margin-bottom: 15px; }
     table tr td { padding: 8px 0; }
-    /* 버튼 비활성화 스타일 */
-    .login-btn:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
   </style>
 </head>
 <body>
@@ -39,7 +33,6 @@
         <td>비밀번호 확인 : </td>
         <td>
           <input type="password" id="password_check" class="login-input" placeholder="비밀번호 확인" required>
-          <span id="pw-check-msg" class="check-msg"></span>
         </td>
       </tr>
 
@@ -77,8 +70,7 @@
       </div>
     </div>
 
-    <!-- 처음에는 비활성화 상태로 시작 -->
-    <button type="submit" id="submitBtn" class="login-btn" style="margin-top: 20px;" disabled>가입하기</button>
+    <button type="submit" class="login-btn" style="margin-top: 20px;">가입하기</button>
   </form>
 
   <div class="login-footer">
@@ -86,106 +78,9 @@
     <a th:href="@{/login}">이미 계정이 있나요? 로그인</a>
   </div>
 </div>
-<script>
-  const idInput = document.getElementById('user_login_id');
-  const idMsg = document.getElementById('id-check-msg');
-  const pwInput = document.getElementById('password');
-  const pwCheckInput = document.getElementById('password_check');
-  const nicknameInput = document.getElementById('nickname');
-  const errorWrapper = document.getElementById('error-message-wrapper');
-  const errorText = document.getElementById('error-text');
 
-  // 아이디 상태 저장 변수 (서버 중복체크 결과 반영)
-  let isIdAvailable = false;
+<!-- 분리한 자바스크립트 파일 불러오기[cite: 1] -->
+<script th:src="@{/js/join.js}"></script>
 
-  // 아이디 중복 체크 로직
-  idInput.addEventListener('blur', function() {
-      const loginId = this.value;
-      const idRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,12}$/;
-
-      if (loginId === "" || !idRegex.test(loginId)) {
-          isIdAvailable = false;
-          return;
-      }
-
-      fetch('/check_id?user_login_id=' + loginId)
-          .then(res => res.json())
-          .then(data => {
-              idMsg.textContent = data.message;
-              if (data.available) {
-                  idMsg.style.color = "green";
-                  isIdAvailable = true;
-              } else {
-                  idMsg.style.color = "red";
-                  isIdAvailable = false;
-              }
-          });
-  });
-
-  // 폼 제출 시 통합 검증 로직
-  document.getElementById('joinForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      // 에러 메시지 초기화
-      errorWrapper.style.display = 'none';
-      errorText.textContent = "";
-
-      // 1. 아이디 검사
-      const idRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,12}$/;
-      if (!idRegex.test(idInput.value)) {
-          showError("아이디 형식이 올바르지 않습니다. (영어+숫자 4~12자)", idInput);
-          return;
-      }
-      if (!isIdAvailable) {
-          showError("아이디 중복 확인이 필요하거나 이미 사용 중인 아이디입니다.", idInput);
-          return;
-      }
-
-      // 2. 비밀번호 일치 검사[cite: 1]
-      if (pwInput.value === "") {
-          showError("비밀번호를 입력해주세요.", pwInput);
-          return;
-      }
-      if (pwInput.value !== pwCheckInput.value) {
-          showError("비밀번호가 서로 일치하지 않습니다.", pwCheckInput);
-          return;
-      }
-
-      // 3. 닉네임 검사[cite: 1]
-      if (nicknameInput.value.trim() === "") {
-          showError("닉네임을 입력해주세요.", nicknameInput);
-          return;
-      }
-
-      // 모든 통과 시 서버 전송[cite: 1]
-      const formData = new FormData(this);
-      fetch('/join_process', {
-          method: 'POST',
-          body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              alert(data.message);
-              window.location.href = '/';[cite: 1]
-          } else {
-              showError(data.message);
-          }
-      })
-      .catch(err => showError("서버 통신 중 오류가 발생했습니다."));
-  });
-
-  // 에러 메시지를 보여주고 해당 입력창으로 이동시키는 함수[cite: 1]
-  function showError(msg, targetInput) {
-      errorText.textContent = msg;
-      errorWrapper.style.display = 'block';
-      if (targetInput) {
-          targetInput.focus();
-          targetInput.style.border = "2px solid red";
-          // 2초 뒤에 빨간 테두리 해제
-          setTimeout(() => targetInput.style.border = "", 2000);
-      }
-  }
-</script>
 </body>
 </html>
