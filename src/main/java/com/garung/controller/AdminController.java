@@ -73,7 +73,7 @@ public class AdminController {
                 sql = "SELECT * FROM " + tableName + " ORDER BY created_at DESC LIMIT 17";
                 List<Map<String, Object>> dataList = jdbcTemplate.queryForList(sql);
                 tableDataMap.put(tableName, dataList);
-                System.out.println(tableName+" :: "+dataList);
+                //System.out.println(tableName+" :: "+dataList);
             } catch (Exception e) {
                 // 테이블은 있는데 데이터가 없거나 조회 에러가 날 경우를 대비
                 tableDataMap.put(tableName, new ArrayList<>());

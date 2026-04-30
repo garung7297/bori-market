@@ -131,11 +131,13 @@ public class LoginController {
             // 3. 기본 권한 부여 (고객 역할 ID: 4)
             String userIdSql = "SELECT id FROM users WHERE user_login_id = ?";
             Integer newUserId = jdbcTemplate.queryForObject(userIdSql, Integer.class, user_login_id);
+            System.out.println("newUserId : " + newUserId);
             jdbcTemplate.update("INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)", newUserId, 4);
 
             return "redirect:/login"; // 가입 성공 시 로그인으로
         } catch (Exception e) {
-            model.addAttribute("error", "가입 도중 오류가 발생했습니다.");
+            model.addAttribute("error", "가입 도중 오류가 발생했습니다.<p>" + e);
+
             return "layout/join";
         }
     }//joinProcess
