@@ -1,0 +1,92 @@
+<!-- right_tabs.html -->
+<div th:fragment="tabsCard" class="card">
+  <div class="tab-container">
+    <!-- 탭 버튼 -->
+    <div class="tab-menu">
+      <button class="tab-btn active" onclick="openTab(event, 'newUsers')">신규 가입</button>
+      <button class="tab-btn" onclick="openTab(event, 'recentLogin')">최근 로그인</button>
+      <button class="tab-btn" onclick="openTab(event, 'productScroll')">상품 보기</button>
+    </div>
+
+<!--    &lt;!&ndash; 탭 1: 최근 가입한 고객 10명 &ndash;&gt;-->
+<!--    <div id="newUsers" class="tab-content active">-->
+<!--      <ul class="list-style">-->
+<!--        <li th:each="user : ${recentJoinedUsers}" th:text="${user.nickname}">닉네임</li>-->
+<!--        <li th:if="${#lists.isEmpty(recentJoinedUsers)}">가입한 고객이 없습니다.</li>-->
+<!--      </ul>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; 탭 2: 최근 로그인한 고객 10명 &ndash;&gt;-->
+<!--    <div id="recentLogin" class="tab-content">-->
+<!--      <ul class="list-style">-->
+<!--        <li th:each="user : ${recentLoginUsers}" th:text="${user.nickname}">닉네임</li>-->
+<!--        <li th:if="${#lists.isEmpty(recentLoginUsers)}">로그인 기록이 없습니다.</li>-->
+<!--      </ul>-->
+<!--    </div>-->
+    <!-- 탭 1: 최근 가입한 고객 -->
+    <div id="newUsers" class="tab-content active">
+      <ul class="list-style">
+        <li >가입한 고객이 없습니다.</li>
+        <!-- user.nickname 대신 user 그대로 사용 (가짜 데이터용) -->
+<!--        <li th:each="user : ${recentJoinedUsers}" th:text="${user}">유저명</li>-->
+<!--        <li th:if="${#lists.isEmpty(recentJoinedUsers)}">가입한 고객이 없습니다.</li>-->
+      </ul>
+    </div>
+
+    <!-- 탭 2: 최근 로그인한 고객 -->
+    <div id="recentLogin" class="tab-content">
+      <ul class="list-style">        <li >가입한 고객이 없습니다.</li>
+<!--        <li th:each="user : ${recentLoginUsers}" th:text="${user}">유저명</li>-->
+<!--        <li th:if="${#lists.isEmpty(recentLoginUsers)}">로그인 기록이 없습니다.</li>-->
+      </ul>
+    </div>
+
+    <!-- 탭 3: 상품 스크롤 페이지[cite: 4] -->
+    <div id="productScroll" class="tab-content">
+      <div class="scroll-box">
+<!--        <div th:each="product : ${productList}" class="product-item">-->
+<!--          <img th:src="${product.image_url}" alt="상품이미지" style="width:40px; height:40px; border-radius:5px;">-->
+<!--          <span th:text="${product.product_name}" style="font-size:13px;">상품명</span>-->
+<!--        </div>-->
+<!--        <div th:if="${#lists.isEmpty(productList)}">등록된 상품이 없습니다.</div>-->
+        <ul class="list-style">        <li >가입한 고객이 없습니다.</li>
+<!--          <li th:each="user : ${recentLoginUsers}" th:text="${user}">유저명</li>-->
+<!--          <li th:if="${#lists.isEmpty(recentLoginUsers)}">로그인 기록이 없습니다.</li>-->
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .tab-menu { display: flex; border-bottom: 2px solid #eee; margin-bottom: 10px; }
+    .tab-btn {
+        flex: 1; padding: 10px; border: none; background: none; cursor: pointer;
+        font-size: 13px; font-weight: bold; color: #888; transition: 0.3s;
+    }
+    .tab-btn.active { color: #03c75a; border-bottom: 2px solid #03c75a; }
+    .tab-content { display: none; padding: 10px 5px; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s; }
+    .list-style { list-style: none; padding: 0; margin: 0; }
+    .list-style li { padding: 8px 0; border-bottom: 1px solid #f9f9f9; font-size: 13px; color: #333; }
+    .scroll-box { max-height: 180px; overflow-y: auto; padding-right: 5px; }
+    .product-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; border-bottom: 1px solid #f9f9f9; padding-bottom: 5px; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+
+  <script>
+    function openTab(evt, tabName) {
+        const tabcontent = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        const tablinks = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+  </script>
+</div>
