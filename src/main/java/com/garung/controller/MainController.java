@@ -46,8 +46,7 @@ public class MainController {
 //        model.addAttribute("productList", productService.getAllProducts());
 
 
-        // 1. 기존 뉴스 (임시로 빈 리스트)
-        model.addAttribute("userNewsList", new ArrayList<>());
+
 
         // 2. 최근 가입 고객 10명 (가짜 데이터)[cite: 4]
         List<String> joinedUsers = new ArrayList<>();
